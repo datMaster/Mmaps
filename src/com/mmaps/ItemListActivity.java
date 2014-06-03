@@ -1,5 +1,9 @@
 package com.mmaps;
 
+import com.mmaps.dummy.DummyContent.DummyItem;
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -32,7 +36,7 @@ public class ItemListActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_list);
-
+		Parse.initialize(this, "k3PVsuxRT0GLMO49CnQrAh20b430Ay9XHjZ3ZHZg", "ZZDK5LfyV6ZmBzO1QmzOe67fKjweitQ4lsATQiFd");
 		if (findViewById(R.id.item_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
@@ -69,9 +73,17 @@ public class ItemListActivity extends FragmentActivity implements
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, ItemDetailActivity.class);
-			detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
+//			Intent detailIntent = new Intent(this, ItemDetailActivity.class);
+//			detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
+//			startActivity(detailIntent);
+			startActivity(new Intent(this, MapActivity.class));
+			
+			if("4".equals(id)){
+				ParseObject testObject = new ParseObject("TestObject");
+				testObject.put("foo", "bar");
+				testObject.saveInBackground();
+			}
+			
 		}
 	}
 }
