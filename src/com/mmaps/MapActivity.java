@@ -1,5 +1,7 @@
 package com.mmaps;
 
+import java.util.List;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -21,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,13 +32,15 @@ import android.os.Build;
 
 public class MapActivity extends ActionBarActivity implements OnMapClickListener, OnMapLongClickListener {
 
-	private GoogleMap map;		
+	private GoogleMap map;
+	private List<LatLng>positions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_map);
-
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_map);		
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.map, new PlaceholderFragment()).commit();
@@ -49,10 +55,13 @@ public class MapActivity extends ActionBarActivity implements OnMapClickListener
 		CameraPosition cameraPosition = new CameraPosition.Builder().target(
                 new LatLng(50.4429, 30.5119)).zoom(12).build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+		map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 	}
 	
 	@Override
 	public void onMapClick(LatLng position) {
+		positions.add(position);
+		LatLng fromPoint = new LatLng(50.4429, 30.5119);
 		TextView textEdit = (TextView)findViewById(R.id.mapText);
 		textEdit.setText(position.toString());
 		
@@ -65,6 +74,7 @@ public class MapActivity extends ActionBarActivity implements OnMapClickListener
 		.fillColor(Color.TRANSPARENT)		
 		.strokeWidth(2);	
 		Circle circle = map.addCircle(circleOptions);
+		
 //		Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_LONG).show();
 	}
 	

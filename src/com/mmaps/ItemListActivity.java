@@ -7,6 +7,7 @@ import com.parse.ParseObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Window;
 
 /**
  * An activity representing a list of Items. This activity has different
@@ -34,7 +35,7 @@ public class ItemListActivity extends FragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_item_list);
 		Parse.initialize(this, "k3PVsuxRT0GLMO49CnQrAh20b430Ay9XHjZ3ZHZg", "ZZDK5LfyV6ZmBzO1QmzOe67fKjweitQ4lsATQiFd");
 		if (findViewById(R.id.item_detail_container) != null) {
